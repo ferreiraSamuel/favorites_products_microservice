@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  favorites_products_database:
+    image: postgres:14.1-alpine
+    environment:
+      - POSTGRES_DB=favorites_products
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=102030
+    volumes:
+      - database:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+  favorites_products_api:
+    build: docker/dev
+    ports:
+      - '3001:3000'
+      - '3229:9229'
+    env_file:
+      - .env
+    volumes:
+      - .:/server
+    depends_on:
+      - favorites_products_database
+
+volumes:
+  database:
