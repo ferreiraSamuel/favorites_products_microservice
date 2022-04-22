@@ -14,6 +14,7 @@ import { ClientEntity } from './entities/client.entity';
 import { ApiBody } from '@nestjs/swagger';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import { ClientInterface } from './interfaces/client.interface';
 
 @Controller('client')
 export class ClientsController {
@@ -29,7 +30,7 @@ export class ClientsController {
 
   @Post()
   @ApiBody({ type: CreateClientDto })
-  public createClient(@Body() body: CreateClientDto): Promise<ClientEntity> {
+  public createClient(@Body() body: CreateClientDto): Promise<ClientInterface> {
     return this.service.createClient(body);
   }
 
@@ -40,6 +41,8 @@ export class ClientsController {
       id: body.id,
       email: body.email,
       name: body.name,
+      newPassword: body.newPassword,
+      currentPassword: body.currentPassword,
     });
   }
 

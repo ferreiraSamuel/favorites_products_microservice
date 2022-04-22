@@ -1,10 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-  Unique,
-} from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ClientInterface } from '../interfaces/client.interface';
 
 @Entity({
@@ -25,4 +19,10 @@ export class ClientEntity extends BaseEntity implements ClientInterface {
     nullable: true,
   })
   name: string;
+  @Column({
+    type: 'varchar',
+    length: 256,
+    nullable: false,
+  })
+  password: string;
 }

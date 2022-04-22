@@ -1,10 +1,15 @@
 import { ClientInterface } from './interfaces/client.interface';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ClientEntity } from './entities/client.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class ClientsService {
@@ -14,7 +19,10 @@ export class ClientsService {
   ) {}
 
   public async getClient(id: number): Promise<ClientEntity> {
-    const client: ClientInterface = await this.repository.findOne(id);
+    const client: ClientInterface = await this.repository.findOne({
+      select: ['id', 'email', 'name'],
+      where: { id },
+    });
 
     if (!client) {
       throw new BadRequestException({
@@ -23,28 +31,48 @@ export class ClientsService {
       });
     }
 
-    return this.repository.findOne(id);
+    return this.repository.findOne({
+      select: ['id', 'email', 'name'],
+      where: { id },
+    });
   }
 
-  public async createClient(body: CreateClientDto): Promise<ClientEntity> {
+  public async createClient(body: CreateClientDto): Promise<ClientInterface> {
     const client: ClientEntity = new ClientEntity();
     client.name = body.name;
     client.email = body.email;
+    client.password = await bcrypt.hash(body.newPassword, 10);
 
     const emailAlreadyExists = await this.repository.findOne({
       email: client.email,
     });
+
     if (emailAlreadyExists) {
       throw new BadRequestException('Este email já está sendo usado.');
     }
 
-    return this.repository.save(client);
+    const createdClient = await this.repository.save(client);
+
+    return { ...createdClient, password: undefined };
   }
 
   public async updateClient(updateClientDto: UpdateClientDto) {
     const client: ClientInterface = await this.repository.findOne({
       id: updateClientDto.id,
     });
+
+    if (!client) {
+      throw new BadRequestException('Cliente não encontrado');
+    }
+
+    const isPasswordValid = await bcrypt.compare(
+      updateClientDto.currentPassword,
+      client.password,
+    );
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Senha atual inválida');
+    }
 
     return this.repository.update(
       {
@@ -53,11 +81,12 @@ export class ClientsService {
       {
         email: updateClientDto.email || client.email,
         name: updateClientDto.name || client.name,
+        password: await bcrypt.hash(updateClientDto.newPassword, 10),
       },
     );
   }
 
-  removeClient(id: number) {
+  public removeClient(id: number) {
     return this.repository.delete({
       id: id,
     });
