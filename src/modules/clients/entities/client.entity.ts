@@ -1,8 +1,14 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 import { ClientInterface } from '../interfaces/client.interface';
 
 @Entity({
-  name: 'Clients',
+  name: 'clients',
 })
 export class ClientEntity extends BaseEntity implements ClientInterface {
   @PrimaryGeneratedColumn()
