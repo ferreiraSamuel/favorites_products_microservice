@@ -18,8 +18,8 @@ export class ClientsService {
     private readonly repository: Repository<ClientEntity>,
   ) {}
 
-  public async getClient(id: number): Promise<ClientEntity> {
-    const client: ClientInterface = await this.repository.findOne({
+  public async getClient(id: number): Promise<ClientInterface> {
+    const client = await this.repository.findOne({
       select: ['id', 'email', 'name'],
       where: { id },
     });
@@ -31,9 +31,16 @@ export class ClientsService {
       });
     }
 
+    return client;
+  }
+
+  public async getClientByEmail(
+    email: string,
+    select: Array<keyof ClientInterface>,
+  ): Promise<ClientInterface> {
     return this.repository.findOne({
-      select: ['id', 'email', 'name'],
-      where: { id },
+      select,
+      where: { email },
     });
   }
 

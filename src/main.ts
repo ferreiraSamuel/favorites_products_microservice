@@ -10,7 +10,7 @@ async function bootstrap() {
     .setTitle('Favorites Products MicroService')
     .setDescription('MicroService for Favorites Products')
     .setVersion('1.0')
-    .addTag('default')
+    .addTag('Clientes')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

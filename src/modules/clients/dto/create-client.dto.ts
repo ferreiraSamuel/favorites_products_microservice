@@ -8,16 +8,18 @@ import {
 } from 'class-validator';
 
 export class CreateClientDto {
-  @ApiProperty()
+  @ApiProperty({
+    example: 'João Paulo',
+  })
   @IsString()
   name: string;
 
-  @ApiProperty()
+  @ApiProperty({ example: 'email@email.com' })
   @IsEmail()
   email: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ example: '123@abc' })
   @MinLength(4)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {

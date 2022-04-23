@@ -11,20 +11,19 @@ import {
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
 import { ClientEntity } from './entities/client.entity';
-import { ApiBody } from '@nestjs/swagger';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { CreateClientDto } from './dto/create-client.dto';
 import { UpdateClientDto } from './dto/update-client.dto';
 import { ClientInterface } from './interfaces/client.interface';
 
+@ApiTags('Clientes')
 @Controller('client')
 export class ClientsController {
   @Inject(ClientsService)
   private readonly service: ClientsService;
 
   @Get(':id')
-  public getClient(
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<ClientEntity> {
+  public getClient(@Param('id', ParseIntPipe) id: number) {
     return this.service.getClient(id);
   }
 

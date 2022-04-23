@@ -3,11 +3,11 @@ import { IsNumber, IsString } from 'class-validator';
 import { CreateClientDto } from './create-client.dto';
 
 export class UpdateClientDto extends PartialType(CreateClientDto) {
-  @ApiProperty()
+  @ApiProperty({ example: 1 })
   @IsNumber()
   id: number;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ example: '123@abc' })
   currentPassword: string;
 }
