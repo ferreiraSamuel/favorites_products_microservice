@@ -61,6 +61,33 @@ export class FavoriteProductsService {
 
     return {
       success: true,
+      message: 'Produto salvo com sucesso!',
     };
+  }
+
+  public async unfavorite(productId: string, clientId: number) {
+    const client = await this.clientRepository.findOne(clientId, {
+      relations: ['favorites'],
+    });
+
+    if (!client) {
+      throw new BadRequestException('Cliente Inválido');
+    }
+
+    try {
+      client.favorites = client.favorites.filter(
+        (product) => product.externalId !== productId,
+      );
+
+      await client.save();
+
+      return {
+        success: true,
+      };
+    } catch (e) {
+      return {
+        success: false,
+      };
+    }
   }
 }
