@@ -1,3 +1,4 @@
+import { ClientFromJWT } from './../auth/interfaces/client-from-jwt.interface';
 import { ClientInterface } from './interfaces/client.interface';
 import {
   BadRequestException,
@@ -63,32 +64,28 @@ export class ClientsService {
     return { ...createdClient, password: undefined };
   }
 
-  public async updateClient(updateClientDto: UpdateClientDto) {
+  public async updateClient(
+    currentClient: ClientFromJWT,
+    updateClientDto: UpdateClientDto,
+  ) {
     const client: ClientInterface = await this.repository.findOne({
-      id: updateClientDto.id,
+      id: currentClient.id,
     });
 
     if (!client) {
       throw new BadRequestException('Cliente não encontrado');
     }
 
-    const isPasswordValid = await bcrypt.compare(
-      updateClientDto.currentPassword,
-      client.password,
-    );
-
-    if (!isPasswordValid) {
-      throw new UnauthorizedException('Senha atual inválida');
-    }
-
     return this.repository.update(
       {
-        id: updateClientDto.id,
+        id: currentClient.id,
       },
       {
         email: updateClientDto.email || client.email,
         name: updateClientDto.name || client.name,
-        password: await bcrypt.hash(updateClientDto.newPassword, 10),
+        password: updateClientDto.newPassword
+          ? await bcrypt.hash(updateClientDto.newPassword, 10)
+          : client.password,
       },
     );
   }

@@ -11,6 +11,7 @@ async function bootstrap() {
     .setDescription('MicroService for Favorites Products')
     .setVersion('1.0')
     .addTag('Clientes')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

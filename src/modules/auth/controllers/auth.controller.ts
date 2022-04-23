@@ -14,7 +14,7 @@ import { IsPublic } from '../decorators/is-public.decorator';
 import { CurrentClient } from '../decorators/current-client.decorator';
 
 @Controller()
-@ApiTags('Auth')
+@ApiTags('Autenticação')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @IsPublic()
