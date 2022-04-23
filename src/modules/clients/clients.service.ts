@@ -1,10 +1,6 @@
 import { ClientFromJWT } from './../auth/interfaces/client-from-jwt.interface';
 import { ClientInterface } from './interfaces/client.interface';
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ClientEntity } from './entities/client.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
