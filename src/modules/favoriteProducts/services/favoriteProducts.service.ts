@@ -1,3 +1,4 @@
+import { ProductService } from './../../products/services/products.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ClientEntity } from './../../clients/entities/client.entity';
 import { Repository } from 'typeorm';
@@ -10,6 +11,7 @@ export class FavoriteProductsService {
     @InjectRepository(ClientEntity)
     private readonly clientRepository: Repository<ClientEntity>,
     private readonly productIntegration: ProductsIntegrationInterface,
+    private readonly productService: ProductService,
   ) {}
   public async getFavorites(clientId: number) {
     const client = await this.clientRepository.findOne(clientId, {
@@ -32,11 +34,33 @@ export class FavoriteProductsService {
       throw new BadRequestException('Cliente Inválido');
     }
 
+    const alreadyHasFavorite = client.favorites.some(
+      (favorite) => favorite.externalId === productId,
+    );
+
+    if (alreadyHasFavorite) {
+      throw new BadRequestException(
+        'Esse produto já está na sua lista de favoritos',
+      );
+    }
+
     const product = await this.productIntegration.findById(productId);
 
     if (!product) {
       throw new BadRequestException('Produto não encontrado!');
     }
-    // return client.favorites;
+
+    const savedProduct = await this.productService.saveByIntegration(product);
+
+    const favorites = client.favorites;
+    favorites.push(savedProduct);
+
+    await client.save({
+      data: { favorites },
+    });
+
+    return {
+      success: true,
+    };
   }
 }

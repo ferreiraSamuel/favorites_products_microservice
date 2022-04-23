@@ -34,10 +34,7 @@ export class ClientEntity extends BaseEntity implements ClientInterface {
   })
   password: string;
 
-  @ManyToMany(
-    () => ProductsEntity,
-    // (product) => product.clientFavoritesProducts,
-  )
+  @ManyToMany(() => ProductsEntity, { cascade: true })
   @JoinTable()
   favorites: ProductsEntity[];
 }

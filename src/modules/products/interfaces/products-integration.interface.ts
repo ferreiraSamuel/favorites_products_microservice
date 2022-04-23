@@ -3,5 +3,5 @@ import { ProductsIntegrationProductInterface } from './products-integration-prod
 export abstract class ProductsIntegrationInterface {
   abstract findById(
     productId: string,
-  ): Promise<ProductsIntegrationProductInterface[]>;
+  ): Promise<ProductsIntegrationProductInterface>;
 }

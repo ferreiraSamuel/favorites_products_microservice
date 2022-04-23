@@ -26,7 +26,7 @@ export class FavoriteProductsController {
   @Protected()
   public async favoriteProduct(
     @CurrentClient() client: ClientFromJWT,
-    @Param(':id') productId: string,
+    @Param('id') productId: string,
   ) {
     return this.favoriteProductsService.favorite(productId, client.id);
   }
@@ -37,5 +37,7 @@ export class FavoriteProductsController {
     type: String,
   })
   @Protected()
-  public async unfavoriteProduct() {}
+  public async unfavoriteProduct() {
+    return;
+  }
 }
