@@ -1,6 +1,6 @@
 import { ClientFromJWT } from './../../auth/interfaces/client-from-jwt.interface';
 import { CurrentClient } from './../../auth/decorators/current-client.decorator';
-import { FavoriteProductsService } from './../services/favoriteProducts.service';
+import { FavoriteProductsService } from './../services/favorite-products.service';
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { Protected } from './../../auth/decorators/protected.decorator';
 import { Controller, Get, Post, Delete, Param } from '@nestjs/common';

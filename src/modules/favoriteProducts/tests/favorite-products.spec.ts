@@ -1,4 +1,4 @@
-import { FavoriteProductsModule } from './../favoriteProducts.module';
+import { FavoriteProductsModule } from './../favorite-products.module';
 import { Test } from '@nestjs/testing';
 
 describe('Module [FavoriteProducts]', () => {
