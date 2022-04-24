@@ -10,19 +10,19 @@ import {
 
 export class UpdateClientDto {
   @ApiProperty({
-    example: 'João Paulo',
+    example: 'Pedro Paulo Almeida',
   })
   @IsString()
   @IsOptional()
   name?: string;
 
-  @ApiProperty({ example: 'email@email.com' })
+  @ApiProperty({ example: 'pedro2@email.com' })
   @IsEmail()
   @IsOptional()
   email?: string;
 
   @IsString()
-  @ApiProperty({ example: '123@abc' })
+  @ApiProperty({ example: '123@abc@aSD1' })
   @MinLength(4)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {

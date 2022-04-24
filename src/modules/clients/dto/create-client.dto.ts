@@ -9,17 +9,17 @@ import {
 
 export class CreateClientDto {
   @ApiProperty({
-    example: 'João Paulo',
+    example: 'Pedro Paulo',
   })
   @IsString()
   name: string;
 
-  @ApiProperty({ example: 'email@email.com' })
+  @ApiProperty({ example: 'pedro@email.com' })
   @IsEmail()
   email: string;
 
   @IsString()
-  @ApiProperty({ example: '123@abc' })
+  @ApiProperty({ example: '123@abc@aSD1' })
   @MinLength(4)
   @MaxLength(20)
   @Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {

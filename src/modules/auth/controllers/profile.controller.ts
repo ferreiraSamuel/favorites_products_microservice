@@ -4,7 +4,7 @@ import { ClientsService } from './../../clients/services/clients.service';
 import { Body, Controller, Delete, Get, Patch } from '@nestjs/common';
 import { Protected } from '../decorators/protected.decorator';
 import { CurrentClient } from '../decorators/current-client.decorator';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiTags, ApiOperation } from '@nestjs/swagger';
 
 @Controller({
   path: 'me',
@@ -15,6 +15,10 @@ export class ProfileController {
 
   @Protected()
   @Get()
+  @ApiOperation({
+    summary:
+      'Retorna as informações do cadastro do cliente autenticado (access_token retornado no endpoint de login)',
+  })
   public async getDetails(@CurrentClient() client: ClientFromJWT) {
     return this.clientsService.getClient(client.id);
   }
@@ -22,6 +26,10 @@ export class ProfileController {
   @Protected()
   @Patch()
   @ApiBody({ type: UpdateClientDto })
+  @ApiOperation({
+    summary:
+      'Atualiza as informações de cadastro do cliente autenticado (access_token retornado no endpoint de login)',
+  })
   public async update(
     @CurrentClient() client: ClientFromJWT,
     @Body() body: UpdateClientDto,
@@ -31,6 +39,10 @@ export class ProfileController {
 
   @Protected()
   @Delete()
+  @ApiOperation({
+    summary:
+      'Deleta o cliente da base de dados do cliente autenticado (access_token retornado no endpoint de login)',
+  })
   public async delete(@CurrentClient() client: ClientFromJWT) {
     return this.clientsService.removeClient(client.id);
   }

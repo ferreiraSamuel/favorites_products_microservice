@@ -1,5 +1,5 @@
 import { ClientFromJWT } from './../interfaces/client-from-jwt.interface';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   Controller,
   HttpCode,
@@ -23,6 +23,9 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @ApiBody({
     type: HandleLoginDto,
+  })
+  @ApiOperation({
+    summary: 'Realiza a autenticação do cliente retornando o token JWT',
   })
   login(@CurrentClient() client: ClientFromJWT) {
     return this.authService.getToken(client);
