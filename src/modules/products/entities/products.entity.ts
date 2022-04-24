@@ -1,12 +1,4 @@
-import { ClientEntity } from './../../clients/entities/client.entity';
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { ProductsInterface } from '../interfaces/products.interface';
 
 @Entity({
@@ -46,8 +38,4 @@ export class ProductsEntity extends BaseEntity implements ProductsInterface {
     nullable: false,
   })
   price: number;
-
-  // @ManyToMany(() => ClientEntity, (client) => client.favorites)
-  // @JoinTable()
-  // clientFavoritesProducts: ClientEntity[];
 }

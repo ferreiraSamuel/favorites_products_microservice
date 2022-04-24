@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HttpModule } from '@nestjs/axios';
 import { CommonModule } from '../common/common.module';
-import { ProductsEntity } from './entities/produtcs.entity';
+import { ProductsEntity } from './entities/products.entity';
 import { LuizaLabsProductsIntegration } from './integrations/luizalabs-products.integration';
 import { ProductsIntegrationInterface } from './interfaces/products-integration.interface';
 
