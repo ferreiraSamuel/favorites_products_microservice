@@ -1,11 +1,11 @@
-import { ClientFromJWT } from './../auth/interfaces/client-from-jwt.interface';
-import { ClientInterface } from './interfaces/client.interface';
+import { ClientFromJWT } from './../../auth/interfaces/client-from-jwt.interface';
+import { ClientInterface } from './../interfaces/client.interface';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { ClientEntity } from './entities/client.entity';
+import { ClientEntity } from './../entities/client.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateClientDto } from './dto/create-client.dto';
-import { UpdateClientDto } from './dto/update-client.dto';
+import { CreateClientDto } from './../dto/create-client.dto';
+import { UpdateClientDto } from './../dto/update-client.dto';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()

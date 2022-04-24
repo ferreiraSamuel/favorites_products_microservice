@@ -1,5 +1,5 @@
 import { ClientFromJWT } from './../interfaces/client-from-jwt.interface';
-import { ClientsService } from './../../clients/clients.service';
+import { ClientsService } from './../../clients/services/clients.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { v4 as uuid } from 'uuid';
 import * as bcrypt from 'bcrypt';

@@ -1,18 +1,8 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Inject,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-} from '@nestjs/common';
-import { ClientsService } from './clients.service';
+import { Body, Controller, Inject, Post } from '@nestjs/common';
+import { ClientsService } from './../services/clients.service';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { CreateClientDto } from './dto/create-client.dto';
-import { ClientInterface } from './interfaces/client.interface';
+import { CreateClientDto } from './../dto/create-client.dto';
+import { ClientInterface } from './../interfaces/client.interface';
 
 @ApiTags('Clientes')
 @Controller('client')
