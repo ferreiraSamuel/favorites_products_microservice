@@ -1,73 +1,124 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Micro-serviço de Produtos Favoritos
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+A Magalu está expandindo seus negócios e uma das novas missões do time de
+tecnologia é criar uma funcionalidade de Produtos Favoritos de nossos Clientes, em
+que os nossos aplicativos irão enviar requisições HTTP para um novo backend que
+deverá gerenciar nossos clientes e seus produtos favoritos.
 
-## Description
+#### Fluxograma e Diagrama
+[https://whimsical.com/fluxograma-diagrama-db-U8QV1WALZjn6WjLfL9Vwr3](https://whimsical.com/fluxograma-diagrama-db-U8QV1WALZjn6WjLfL9Vwr3)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Uso/Exemplos
+Todo o projeto pode ser usado e testado pelo Swagger, na qual possibilita fazer as
+consultas e consumir os end-points (substituindo por exemplo: Insomnia, Postman)
 
-```bash
-$ npm install
+Obs: O microservice está exposto na porta 3001
+
+
+**Acesse o Swagger:**
+ ```bash
+  http://localhost:3001/api/docs/
 ```
 
-## Running the app
+
+### Teste - Fluxo
+- Crie um cliente no endpoint /client
+- Faça a autenticação no endpoint /login e copie o access_token retornado pela API
+- Adicione o access_token copiado para autenticar nos endpoints (Botão verde no inicio da tela "Authorize")
+
+- Atualize seu usuário no endpoint /me (PATH)
+
+- Adicione um produto na lista de favoritos no endpoint /favoritesProducts/{id} (POST)
+- Consulte a lista de favoritos no endpoint favoritesProducts (GET)
+
+## Stack utilizada
+
+**Linguagem, Frameworks e libs:**
+
+[NodeJS](#)
+
+[NestJS](#)
+
+[Express](#)
+
+[Jest](#)
+
+[Swagger](#)
+
+[Typescript](#)
+
+[Axios](#)
+## Rodando localmente
+
+Clone o projeto
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  git clone https://github.com/ferreiraSamuel/favorites_products_microservice.git
 ```
 
-## Test
+Entre no diretório do projeto
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+  cd favorites_products_microservice
 ```
 
-## Support
+Instale as dependências
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+  yarn install
+```
+Antes de prosseguir, renomeie o .env.example para .env e verifique as variáveis de ambiente de acordo com a seção abaixo 
 
-## Stay in touch
+Crie os containers do projeto
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+  docker-compose up
+```
 
-## License
+Com o container rodando, em outra aba do terminal, cria as tabelas do banco
 
-Nest is [MIT licensed](LICENSE).
+```bash
+  yarn migrate
+```
+
+## Variáveis de Ambiente
+
+Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de ambiente no seu .env
+
+`DATABASE_USER:` admin
+
+`DATABASE_HOST:` favorites_products_database
+
+`DATABASE_NAME:` favorites_products
+
+`DATABASE_PASSWORD:` 102030
+
+`DATABASE_PORT:` 5432
+
+`JWT_SECRET:` <cria sua jwt_secret>
+
+## Rodando os testes
+
+Para rodar os testes, rode o seguinte comando
+
+```bash
+  # test
+  yarn test
+
+  # cobertura
+  yarn test:cov
+```
+
+
+## Melhorias
+
+Para melhor performance do micro-serviço, para trazer os produtos favoritados
+de um cliente não foi consultado novamente na API de produtos, pois 
+isso resultaria em muitas consultas na api de produtos, para contornar tal problema os produtos são
+armazenados em uma tabela local (melhorando a performance e rapidez ao buscar
+todos os produtos e blindando caso a API de produtos por algum motivo venha
+a ficar indisponível por um breve período) 
+e o produto é atualizado quando é salvo novamente. Porém é indicado
+e essencial ter um cron-job para indexação e atualizar toda essa tabela de produtos.
