@@ -37,19 +37,28 @@ Obs: O microservice está exposto na porta 3001
 
 **Linguagem, Frameworks e libs:**
 
-[NodeJS](#)
+- NodeJS
 
-[NestJS](#)
+- NestJS
 
-[Express](#)
+- TypeORM
 
-[Jest](#)
+- Express
 
-[Swagger](#)
+- Jest
 
-[Typescript](#)
+- Swagger
 
-[Axios](#)
+- Typescript
+
+- Axios
+
+**Banco de dados:**
+
+- Postgres
+
+
+
 ## Rodando localmente
 
 Clone o projeto
